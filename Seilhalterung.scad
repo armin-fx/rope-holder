@@ -34,10 +34,11 @@ bold_border_deviation  = 1; // [0:0.1:10]
 
 /* [Rope mounting] */
 
-rope_mounting_bold     =  6;
-rope_mounting_heigth   =  7;
-rope_mounting_width    = 30;
-rope_mounting_distance = 40;
+rope_mounting_bold        =  6;
+rope_mounting_bold_length = 16;
+rope_mounting_heigth      =  7;
+rope_mounting_width       = 30;
+rope_mounting_distance    = 40;
 
 /* [Rope] */
 
@@ -326,7 +327,7 @@ module rope_holder (part=0)
 		union ()
 		{
 			translate_z (-2.5)
-			m6_bolt (length=16);
+			m6_bolt (length=rope_mounting_bold_length);
 			//
 			translate_z (rope_mounting_heigth)
 			m6_washer  ();
