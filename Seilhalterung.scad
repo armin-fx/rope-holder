@@ -222,7 +222,7 @@ module rope_holder (part=0)
 	if (part==0 || part==1)
 	{
 		color ("yellowgreen")
-		combine () {
+		combine_fixed () {
 			// main
 			difference ()
 			{
@@ -263,7 +263,7 @@ module rope_holder (part=0)
 	if (part==0 || part==2)
 	{
 		color ("MediumAquamarine")
-		combine () {
+		combine_fixed () {
 			// main
 			difference ()
 			{
