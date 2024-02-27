@@ -176,13 +176,13 @@ module rope_holder (part=0)
 			{
 				translate_x (-rope_mounting_distance)
 				cylinder_edges_rounded (h=rope_mounting_heigth, d=rope_mounting_width,
-					angle=[180,90], r_edges=edges_radius
+					angle=[180,90], edges=edges_radius
 				);
 				
 				translate_x (-rope_mounting_distance)
-				cube_rounded ([rope_mounting_width/2, rope_mounting_width, rope_mounting_heigth],
-					r=edges_radius, edges_bottom=[1,0,1,0], edges_top=[1,0,1,0], edges_side=0,
-					align=+X +Z
+				cube_rounded ([rope_mounting_width/2, rope_mounting_width, rope_mounting_heigth]
+					,edges=configure_edges (r=edges_radius, forward=1)
+					,align=+X +Z
 				);
 				
 				// Anbindung von der Befestigungslasche zum Seilhalter
@@ -192,7 +192,7 @@ module rope_holder (part=0)
 					{
 						extrude_to_x (epsilon, -bind_mounting_holder_length)
 						square_rounded ([rope_mounting_width, rope_mounting_heigth],
-							r=edges_radius,
+							edges=edges_radius,
 							align=+Y
 						);
 						
@@ -222,8 +222,8 @@ module rope_holder (part=0)
 	if (part==0 || part==1)
 	{
 		color ("yellowgreen")
-		combine_fixed () {
-			// main
+		combine () {
+			part_main()
 			difference ()
 			{
 				union ()
@@ -245,11 +245,10 @@ module rope_holder (part=0)
 				multmatrix (rope_transform) rope_cut (rope_hold_length);
 			}
 			
-			// add
+			part_add()
 			empty ();
 			
-			// cut
-			union ()
+			part_cut()
 			{
 				holder_rope_to_mounting_cut ();
 				
@@ -263,8 +262,8 @@ module rope_holder (part=0)
 	if (part==0 || part==2)
 	{
 		color ("MediumAquamarine")
-		combine_fixed () {
-			// main
+		combine () {
+			part_main()
 			difference ()
 			{
 				union ()
@@ -297,11 +296,10 @@ module rope_holder (part=0)
 				multmatrix (rope_transform) rope_cut (rope_hold_length);
 			}
 			
-			// add
+			part_add()
 			empty ();
 			
-			// cut
-			union ()
+			part_cut()
 			{
 				holder_rope_to_mounting_cut ();
 				
@@ -376,7 +374,7 @@ module holder_bolt_add (gap=bold_gap)
 		cylinder_edges_rounded (d=rope_hold_bolt_diameter,
 			h = is_nearly (bold_hull_height, hold_part_height, bold_border_deviation) ?
 				hold_part_height : bold_hull_height,
-			r_edges=[edges_radius,0],
+			edges=[edges_radius,0],
 			align=-Z,
 			outer=0.5
 		);
@@ -386,7 +384,7 @@ module holder_bolt_add (gap=bold_gap)
 		translate_z (rope_hold_width/2 - rope_hold_slot/2)
 		cylinder_edges_rounded (d=rope_hold_bolt_diameter,
 			h = bold_height,
-			r_edges=[edges_radius,0],
+			edges=[edges_radius,0],
 			align=-Z,
 			outer=0.5
 		);
@@ -403,7 +401,7 @@ module holder_nut_add ()
 	cylinder_edges_rounded (d=rope_hold_bolt_diameter,
 		h = is_nearly (nut_hull_height, hold_part_height, bold_border_deviation) ?
 			hold_part_height : nut_hull_height,
-		r_edges=[edges_radius,0],
+		edges=[edges_radius,0],
 		align=-Z,
 		outer=0.5
 	);
