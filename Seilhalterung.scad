@@ -1,4 +1,6 @@
-include <banded.scad>
+// Description:
+//
+// A 3D model of a holder for a rope.
 
 /* [Rope holder] */
 
@@ -68,6 +70,9 @@ $fd     = 0.05;
 fn_percent = 0.5;
 
 /* [Hidden] */
+
+include <banded.scad>
+required_version ([2,10,1]);
 
 $fa = get_angle_from_percent (fn_percent);
 
