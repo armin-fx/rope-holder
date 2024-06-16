@@ -58,7 +58,7 @@ skein_rotation_length = 90;
 
 model = "rope holder"; // ["rope holder", "rope test holder", "rope test holder with slots", "rope"]
 
-part_number = 0; // [0, 1, 2]
+part_number = 0; // [0:"complete", 1:"bottom part", 2:"top part"]
 
 show_rope=true;
 show_screw=true;
@@ -72,7 +72,7 @@ fn_percent = 0.5;
 /* [Hidden] */
 
 include <banded.scad>
-required_version ([2,10,1]);
+required_version ([3,0,0]);
 
 $fa = get_angle_from_percent (fn_percent);
 
@@ -99,7 +99,8 @@ if (model=="rope holder")
 if (model=="rope test holder" || model=="rope test holder with slots")
 {
 	if (show_rope==true)
-		%rope_smart (rope_hold_length);
+		virtual()
+		rope_smart (rope_hold_length);
 	rope_test_part (part_number, rope_hold_length,
 		model=="rope test holder"            ? 0 :
 		model=="rope test holder with slots" ? 1 :
@@ -316,17 +317,19 @@ module rope_holder (part=0)
 	
 	// show screws
 	if (show_rope==true)
-		%multmatrix (rope_transform) rope_smart (rope_hold_length+100);
+		virtual()
+		multmatrix (rope_transform) rope_smart (rope_hold_length+100);
 	
 	if (show_screw==true)
+	virtual()
 	{
-		%place_copy (bolt_places)
+		place_copy (bolt_places)
 		multmatrix (bolt_transform) m5_bolt (length=rope_hold_bolt_length);
 		//
-		%place_copy (bolt_places)
+		place_copy (bolt_places)
 		multmatrix (nut_transform) m5_nut ();
 		//
-		%translate_x (-rope_mounting_distance)
+		translate_x (-rope_mounting_distance)
 		union ()
 		{
 			translate_z (-2.5)
